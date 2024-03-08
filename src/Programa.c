@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "../include/Cidades.h"
+#include "../include/Cidades_Vizinhas.h"
 
 int main(){
 
@@ -15,6 +16,8 @@ int main(){
 
     for(int i = 0; i < m; ++i){
         scanf("%d %d %d", &a, &b, &c);
+        adicionar_Vizinho(&(lc->cidades[a-1]), b, c);
+        
     }
 
     desalocar_Lista_de_Cidades(lc);
