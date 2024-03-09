@@ -4,6 +4,9 @@
         "string.h": "c",
         "stdio.h": "c",
         "stdbool.h": "c",
-        "malloc.h": "c"
+        "malloc.h": "c",
+        "cidades_vizinhas.h": "c",
+        "stdlib.h": "c",
+        "lista_cidades.h": "c"
     }
 }

@@ -1,52 +1,54 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include "../include/Cidades.h"
 
-Lista_de_Cidades* criar_Lista_de_cidades(int qtd_de_cidades) {
-    Lista_de_Cidades *lc = (Lista_de_Cidades*) malloc(sizeof(Lista_de_Cidades));
-
-    if (lc == NULL)
+Cidade* criar_Cidade(int id_cidade) {
+    Cidade *c = (Cidade*) malloc(sizeof(Cidade));
+    if (c == NULL) 
         return NULL;
-
-    lc->qtd_de_cidades = qtd_de_cidades;
-    lc->cidades = (Cidade*) malloc(sizeof(Cidade) * qtd_de_cidades);
-
-    if (lc->cidades == NULL) {
-        free(lc);
-        return NULL;
-    }
-
-    for (int i = 0; i < qtd_de_cidades; ++i) {
-        lc->cidades[i].id_cidade = i+1;
-        lc->cidades[i].ini_vizinhanca = NULL;
-        lc->cidades[i].fim_vizinhanca = NULL;
-    }
-
-    return lc;
+    
+    c->id_cidade = id_cidade;
+    c->fim_vizinhanca = c->ini_vizinhanca = NULL;
+    return c;
 }
 
-void printar_Lista_de_Cidades(Lista_de_Cidades* lc) {
-    if (lc == NULL || lc->qtd_de_cidades == 0) {
-        printf("Lista de cidades nao existe.\n");
+bool adicionar_Vizinho(Cidade *c, int id_cidade, int preco_viagem) {
+    if (c == NULL) 
+        return false;
+    
+    Vizinhanca *v = (Vizinhanca*) malloc(sizeof(Vizinhanca));
+    if (v == NULL)
+        return false;
+    
+    v->id_cidade = id_cidade;
+    v->preco_viagem = preco_viagem;
+    v->prox_cidade = NULL;
+
+    if (c->ini_vizinhanca == NULL) {
+        c->ini_vizinhanca = v;
+        c->fim_vizinhanca = v;
+    } else {
+        c->fim_vizinhanca->prox_cidade = v;
+        c->fim_vizinhanca = v;
+    }
+
+    return true;
+}
+
+void desalocar_Cidade(Cidade *c) {
+    if (c == NULL) {
         return;
     }
 
-    printf("Lista de Cidades:\n");
-    for (int i = 0; i < lc->qtd_de_cidades - 1; ++i) {
-        printf("Cidade %d, ", lc->cidades[i].id_cidade);
+    if(c->ini_vizinhanca == NULL){
+        return;
     }
 
-    printf("Cidade %d\n", lc->cidades[lc->qtd_de_cidades - 1].id_cidade);
-
-}
-
-bool desalocar_Lista_de_Cidades(Lista_de_Cidades *lc) {
-    if (lc == NULL)
-        return false;
-
-    for (int i = 0; i < lc->qtd_de_cidades; ++i) {
-        desalocar_Cidade(&lc->cidades[i]);
+    while (c->ini_vizinhanca != c->fim_vizinhanca) {
+        Vizinhanca *cv_aux = c->ini_vizinhanca;
+        c->ini_vizinhanca = c->ini_vizinhanca->prox_cidade;
+        free(cv_aux);
     }
 
-    free(lc->cidades);
-    free(lc);
-    return true;
+    free(c->ini_vizinhanca);
 }

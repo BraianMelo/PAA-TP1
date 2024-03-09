@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "../include/Cidades.h"
-#include "../include/Cidades_Vizinhas.h"
+#include "../include/Lista_Cidades.h"
 
 int main(){
 

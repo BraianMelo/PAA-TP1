@@ -1,13 +1,24 @@
+#ifndef CIDADES_VIZINHAS_H
+#define CIDADES_VIZINHAS_H
+
 #include <stdio.h>
-#include <string.h>
 #include <malloc.h>
 #include <stdbool.h>
 
-typedef struct Lista_de_Cidades{
-    int tamanho;
-    int *id_cidades;
-} Lista_de_Cidades;
+typedef struct Vizinhanca{
+    int id_cidade;
+    int preco_viagem;
+    struct Vizinhanca *prox_cidade;
+} Vizinhanca;
 
-Lista_de_Cidades* criar_Lista_de_cidades(int tamanho);
-void printar_Lista_de_Cidades(Lista_de_Cidades *lc);
-bool desalocar_Lista_de_Cidades(Lista_de_Cidades *lc);
+typedef struct Cidade{
+    int id_cidade;
+    Vizinhanca *ini_vizinhanca;
+    Vizinhanca *fim_vizinhanca;
+} Cidade;
+
+Cidade *criar_Cidade(int id_cidade);
+bool adicionar_Vizinho(Cidade *c,int id_cidade, int preco_viagem);
+void desalocar_Cidade(Cidade *c);
+
+#endif
