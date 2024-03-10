@@ -19,6 +19,7 @@ typedef struct Cidade{
 
 Cidade *criar_Cidade(int id_cidade);
 bool adicionar_Vizinho(Cidade *c,int id_cidade, int preco_viagem);
+
 void desalocar_Cidade(Cidade *c);
 
 #endif

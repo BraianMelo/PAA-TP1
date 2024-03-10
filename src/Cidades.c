@@ -1,5 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
+
 #include "../include/Cidades.h"
 
 Cidade* criar_Cidade(int id_cidade) {
