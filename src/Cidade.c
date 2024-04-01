@@ -1,5 +1,5 @@
 
-#include "../include/Cidades.h"
+#include "../include/Cidade.h"
 
 Cidade* criar_Cidade(int id_cidade) {
     Cidade *c = (Cidade*) malloc(sizeof(Cidade));
@@ -21,6 +21,7 @@ bool adicionar_Vizinho(Cidade *c, int id_cidade, int preco_viagem) {
     
     v->id_cidade = id_cidade;
     v->preco_viagem = preco_viagem;
+    v->caminho_valido = true;
     v->prox_cidade = NULL;
 
     if (c->ini_vizinhanca == NULL) {

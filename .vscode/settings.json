@@ -7,6 +7,10 @@
         "malloc.h": "c",
         "cidades_vizinhas.h": "c",
         "stdlib.h": "c",
-        "lista_cidades.h": "c"
+        "lista_cidades.h": "c",
+        "dijkstra.h": "c",
+        "cidade.h": "c",
+        "caminho.h": "c",
+        "lista_caminhos.h": "c"
     }
 }

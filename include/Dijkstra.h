@@ -1,23 +1,20 @@
 #ifndef DIJKSTRA_H
-#define DIJKSTRA_H
 
-#include <stdio.h>
-#include <malloc.h>
-#include <stdbool.h>
+    #define DIJKSTRA_H
 
-#include "../include/Lista_Cidades.h"
-#include "../include/Cidades.h"
+    #include <stdio.h>
+    #include <malloc.h>
+    #include <stdbool.h>
 
-typedef struct Lista_Caminhos{
-    int parametro_k;
-    int tamanho_da_lista;
-    int *caminhos_possiveis;
+    #include "../include/Cidade.h"
+    #include "../include/Lista_Cidades.h"
+    #include "../include/Caminho.h"
+    #include "../include/Lista_Caminhos.h"
 
-} Lista_Caminhos;
+    #define INFINITO -1
 
-Lista_Caminhos* criar_Lista_Caminhos(int parametro_k);
-bool calcular_Caminhos_Possiveis(Lista_Caminhos *lista_caminhos, Lista_de_Cidades *lista_cidades);
-int proxima_cidade(bool *cidades_visitadas, int *menores_caminhos, Lista_de_Cidades *lista_cidades);
-void desalocar_Lista_Caminhos(Lista_Caminhos *lista_caminhos);
+    Lista_Caminhos* criar_Lista_Caminhos(int parametro_k);
+    bool Dijkstras(Lista_Caminhos *lista_caminhos, Lista_de_Cidades *lista_cidades);
+    int proxima_cidade(Lista_de_Cidades *lista_cidades, bool *cidades_visitadas, int *menores_caminhos);
 
 #endif

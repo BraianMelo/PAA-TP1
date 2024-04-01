@@ -38,6 +38,13 @@ void printar_Lista_de_Cidades(Lista_de_Cidades* lc) {
 
 }
 
+Cidade *achar_Cidade(Lista_de_Cidades *lc, int id_cidade){
+    if(id_cidade > lc->qtd_de_cidades)
+        return NULL;
+
+    return &(lc->cidades[id_cidade - 1]);
+}
+
 bool desalocar_Lista_de_Cidades(Lista_de_Cidades *lc) {
     if (lc == NULL)
         return false;
