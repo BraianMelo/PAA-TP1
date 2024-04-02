@@ -11,7 +11,7 @@ void iniciar_Caminho(Caminho *caminho){
 
 }
 
-bool empilhar_aresta_no_caminho(Caminho *caminho,int id_cidade){
+bool empilhar_aresta_no_caminho(Caminho *caminho, int id_cidade){
     if(caminho == NULL)
         return false;
     
@@ -27,12 +27,12 @@ bool empilhar_aresta_no_caminho(Caminho *caminho,int id_cidade){
     return true;
 }
 
-bool desempilhar_aresta_no_caminho(Caminho *caminho){
+int desempilhar_aresta_no_caminho(Caminho *caminho){
     if(caminho == NULL)
-        return false;
+        return 0;
 
     --caminho->qtd_arestas;
-    return true;
+    return caminho->caminho_percorrido[caminho->qtd_arestas];
 }
 
 bool printar_Caminho(Caminho *caminho){
@@ -40,10 +40,14 @@ bool printar_Caminho(Caminho *caminho){
         return false; 
 
     for(int i = 0; i < caminho->qtd_arestas; ++i){
-        printf("%d ", caminho->caminho_percorrido[i]);
+        printf("%d ", caminho->caminho_percorrido[i] + 1);
     }
     printf("- valor = %d \n", caminho->valor);
     return true;
+}
+
+int topo_do_Caminho(Caminho *caminho){
+    return caminho->caminho_percorrido[caminho->qtd_arestas - 1];
 }
 
 

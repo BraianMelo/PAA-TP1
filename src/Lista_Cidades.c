@@ -45,6 +45,34 @@ Cidade *achar_Cidade(Lista_de_Cidades *lc, int id_cidade){
     return &(lc->cidades[id_cidade - 1]);
 }
 
+bool desabilitar_Vizinho(Lista_de_Cidades *lc, int id_cidade_inicial, int id_cidade_final) {
+    Vizinhanca *v = lc->cidades[id_cidade_inicial].ini_vizinhanca;
+
+    while (v != NULL) {
+        if (v->id_cidade == id_cidade_final) {
+            v->caminho_valido = false;
+            return true;
+        }
+        v = v->prox_cidade;
+    }
+
+    return false;
+}
+
+bool habilitar_Vizinho(Lista_de_Cidades *lc, int id_cidade_inicial, int id_cidade_final) {
+    Vizinhanca *v = lc->cidades[id_cidade_inicial].ini_vizinhanca;
+
+    while (v != NULL) {
+        if (v->id_cidade == id_cidade_final) {
+            v->caminho_valido = true;
+            return true;
+        }
+        v = v->prox_cidade;
+    }
+
+    return false;
+}
+
 bool desalocar_Lista_de_Cidades(Lista_de_Cidades *lc) {
     if (lc == NULL)
         return false;

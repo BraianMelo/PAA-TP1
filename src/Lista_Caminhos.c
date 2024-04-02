@@ -4,8 +4,9 @@ Lista_Caminhos* criar_Lista_Caminhos(int k){
     Lista_Caminhos *lista_caminhos = (Lista_Caminhos*) malloc(sizeof(Lista_Caminhos));
     lista_caminhos->k = k;
     lista_caminhos->qtd_caminhos = 0;
+    lista_caminhos->tamanho = TAMANHO_INICIAL;
 
-    lista_caminhos->Caminhos = (Caminho*) malloc(sizeof(Caminho) * k);
+    lista_caminhos->Caminhos = (Caminho*) malloc(sizeof(Caminho) * TAMANHO_INICIAL);
 
     for(int i = 0; i < lista_caminhos->k; ++i){
         iniciar_Caminho(&lista_caminhos->Caminhos[i]);
@@ -15,9 +16,9 @@ Lista_Caminhos* criar_Lista_Caminhos(int k){
 }
 
 bool adicionar_Caminho_na_Lista(Lista_Caminhos *lista_caminhos, int valor_do_caminho, int *cidade_anteriores, int tamanho){
-    if(lista_caminhos->qtd_caminhos >= lista_caminhos->k - 1){
-        if(lista_caminhos->qtd_caminhos > 0 && valor_do_caminho > lista_caminhos->Caminhos[lista_caminhos->qtd_caminhos - 1].valor)
-            return false;
+    if(lista_caminhos->qtd_caminhos >= lista_caminhos->tamanho){
+        lista_caminhos->tamanho *= 2;
+        lista_caminhos->Caminhos = (Caminho*) realloc(lista_caminhos->Caminhos, sizeof(Caminho) * lista_caminhos->tamanho);
     }
 
     lista_caminhos->Caminhos[lista_caminhos->qtd_caminhos].valor = valor_do_caminho;
@@ -30,9 +31,9 @@ bool adicionar_Caminho_na_Lista(Lista_Caminhos *lista_caminhos, int valor_do_cam
     }
 
     empilhar_aresta_no_caminho(&lista_caminhos->Caminhos[lista_caminhos->qtd_caminhos], 0);
+    printar_Caminho(&lista_caminhos->Caminhos[lista_caminhos->qtd_caminhos]);
     lista_caminhos->qtd_caminhos++;
 
-    Insertion_Sort(lista_caminhos->Caminhos, lista_caminhos->qtd_caminhos);
     return true;
 }
 

@@ -20,7 +20,8 @@ typedef struct Caminho
 
 void iniciar_Caminho(Caminho *caminho);
 bool empilhar_aresta_no_caminho(Caminho *caminho,int id_cidade);
-bool desempilhar_aresta_no_caminho(Caminho *caminho);
+int desempilhar_aresta_no_caminho(Caminho *caminho);
+int topo_do_Caminho(Caminho *caminho);
 bool printar_Caminho(Caminho *caminho);
 void desalocar_Caminho(Caminho *caminho);
 

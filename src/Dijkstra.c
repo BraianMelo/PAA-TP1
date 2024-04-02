@@ -27,11 +27,12 @@ bool Dijkstras(Lista_Caminhos *lista_caminhos, Lista_de_Cidades *lista_cidades){
 
         while(vizinhanca != NULL){
 
-            if(!vizinhanca->caminho_valido)
-                continue;
-            
-            if(vizinhanca->id_cidade == lista_cidades->qtd_de_cidades - 1)
-                printf("Valor: %d \n", vizinhanca->preco_viagem + menores_caminhos[cidade_atual]);
+            if(!vizinhanca->caminho_valido){
+                vizinhanca = vizinhanca->prox_cidade;
+                
+                if(vizinhanca == NULL)
+                    break;
+            }
 
 
             if(menores_caminhos[vizinhanca->id_cidade] == INFINITO){
@@ -52,16 +53,12 @@ bool Dijkstras(Lista_Caminhos *lista_caminhos, Lista_de_Cidades *lista_cidades){
         
     }
 
-    for(int i = 0; i < lista_cidades->qtd_de_cidades; ++i){
-        printf("%d ", cidades_anteriores[i]);
-    }
-    printf("\n");
-
     adicionar_Caminho_na_Lista(lista_caminhos, menores_caminhos[lista_cidades->qtd_de_cidades - 1], cidades_anteriores, lista_cidades->qtd_de_cidades - 1);
 
     free(cidades_visitadas);
     free(menores_caminhos);
     free(cidades_anteriores);
+
     return true;
 }
 

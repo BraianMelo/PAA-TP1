@@ -1,5 +1,5 @@
-all: obj/Programa.o obj/Lista_Cidades.o obj/Cidade.o obj/Dijkstra.o obj/Lista_Caminhos.o obj/Caminho.o
-	gcc obj/Programa.o obj/Lista_Cidades.o obj/Cidade.o obj/Dijkstra.o obj/Lista_Caminhos.o obj/Caminho.o -o Programa
+all: obj/Programa.o obj/Lista_Cidades.o obj/Cidade.o obj/Dijkstra.o obj/Lista_Caminhos.o obj/Caminho.o obj/Yen.o
+	gcc obj/Programa.o obj/Lista_Cidades.o obj/Cidade.o obj/Dijkstra.o obj/Lista_Caminhos.o obj/Caminho.o obj/Yen.o -o Programa
 	mv Programa bin/
 
 obj/Programa.o: src/Programa.c
@@ -25,6 +25,10 @@ obj/Lista_Caminhos.o: src/Lista_Caminhos.c include/Lista_Caminhos.h
 obj/Caminho.o: src/Caminho.c include/Caminho.h
 	gcc src/Caminho.c -c
 	mv Caminho.o obj/
+
+obj/Yen.o: src/Yen.c include/Yen.h
+	gcc src/Yen.c -c 
+	mv Yen.o obj/
 
 apagar:
 	rm obj/* bin/Programa

@@ -6,6 +6,7 @@
 #include "../include/Caminho.h"
 #include "../include/Lista_Caminhos.h"
 #include "../include/Dijkstra.h"
+#include "../include/Yen.h"
 
 bool entrada_estah_correta(int n, int m, int k);
 
@@ -30,9 +31,7 @@ int main(){
 
     Lista_Caminhos *lista_caminhos = criar_Lista_Caminhos(k);
 
-    Dijkstras(lista_caminhos, lista_cidades);
-
-    printar_Caminhos(lista_caminhos);
+    Yen(lista_caminhos, lista_cidades);
 
     desalocar_Lista_Caminhos(lista_caminhos);
     desalocar_Lista_de_Cidades(lista_cidades);

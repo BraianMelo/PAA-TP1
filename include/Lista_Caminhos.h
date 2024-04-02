@@ -10,6 +10,7 @@ typedef struct Lista_Caminhos
 {
     int k;
     int qtd_caminhos;
+    int tamanho;
     Caminho *Caminhos;
 
 } Lista_Caminhos;
