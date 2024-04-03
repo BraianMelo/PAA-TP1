@@ -7,7 +7,7 @@
 
 #include "../include/Cidade.h"
 
-#define TAMANHO_INICIAL 8
+#define TAMANHO_INICIAL 10
 
 typedef struct Caminho
 {

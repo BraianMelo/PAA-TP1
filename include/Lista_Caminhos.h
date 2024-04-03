@@ -18,6 +18,7 @@ typedef struct Lista_Caminhos
 Lista_Caminhos* criar_Lista_Caminhos(int k);
 bool adicionar_Caminho_na_Lista(Lista_Caminhos *lista_caminhos, int valor_do_caminho, int *cidade_anteriores, int tamanho);
 void Insertion_Sort(Caminho *caminhos, int n);
+bool Caminho_eh_repetido(Lista_Caminhos *lista_caminhos, Caminho *novo_caminho);
 void printar_Caminhos(Lista_Caminhos *lista_caminhos);
 void desalocar_Lista_Caminhos(Lista_Caminhos *lista_caminhos);
 

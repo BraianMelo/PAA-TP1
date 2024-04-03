@@ -4,9 +4,9 @@ Lista_Caminhos* criar_Lista_Caminhos(int k){
     Lista_Caminhos *lista_caminhos = (Lista_Caminhos*) malloc(sizeof(Lista_Caminhos));
     lista_caminhos->k = k;
     lista_caminhos->qtd_caminhos = 0;
-    lista_caminhos->tamanho = TAMANHO_INICIAL;
+    lista_caminhos->tamanho = k;
 
-    lista_caminhos->Caminhos = (Caminho*) malloc(sizeof(Caminho) * TAMANHO_INICIAL);
+    lista_caminhos->Caminhos = (Caminho*) malloc(sizeof(Caminho) * TAMANHO_INICIAL);  
 
     for(int i = 0; i < lista_caminhos->k; ++i){
         iniciar_Caminho(&lista_caminhos->Caminhos[i]);
@@ -28,10 +28,11 @@ bool adicionar_Caminho_na_Lista(Lista_Caminhos *lista_caminhos, int valor_do_cam
     while(posicao != 0){
         empilhar_aresta_no_caminho(&lista_caminhos->Caminhos[lista_caminhos->qtd_caminhos], posicao);
         posicao = cidade_anteriores[posicao];
+        
     }
 
     empilhar_aresta_no_caminho(&lista_caminhos->Caminhos[lista_caminhos->qtd_caminhos], 0);
-    printar_Caminho(&lista_caminhos->Caminhos[lista_caminhos->qtd_caminhos]);
+
     lista_caminhos->qtd_caminhos++;
 
     return true;
@@ -48,6 +49,28 @@ void Insertion_Sort(Caminho *caminhos, int n) {
         }
         caminhos[j + 1] = chave;
     }
+}
+
+bool Caminho_eh_repetido(Lista_Caminhos *lista_caminhos, Caminho *novo_caminho) {
+    for (int i = 0; i < lista_caminhos->qtd_caminhos; ++i) {
+        Caminho *caminho_atual = &lista_caminhos->Caminhos[i];
+
+        if (caminho_atual->qtd_arestas != novo_caminho->qtd_arestas)
+            continue;
+
+        bool iguais = true;
+        for (int j = 0; j < caminho_atual->qtd_arestas; ++j) {
+            if (caminho_atual->caminho_percorrido[j] != novo_caminho->caminho_percorrido[j]) {
+                iguais = false;
+                break;
+            }
+        }
+
+        if (iguais)
+            return true;
+    }
+
+    return false;
 }
 
 void printar_Caminhos(Lista_Caminhos *lista_caminhos){

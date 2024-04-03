@@ -1,16 +1,34 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+
 
 #include "../include/Cidade.h"
 #include "../include/Lista_Cidades.h"
+
 #include "../include/Caminho.h"
 #include "../include/Lista_Caminhos.h"
+
 #include "../include/Dijkstra.h"
 #include "../include/Yen.h"
 
 bool entrada_estah_correta(int n, int m, int k);
 
-int main(){
+void start_timer(struct timeval *timer) {
+    gettimeofday(timer, NULL);
+}
+
+double stop_timer(struct timeval *start) {
+    struct timeval end;
+    gettimeofday(&end, NULL);
+    return (double)(end.tv_sec - start->tv_sec) + (double)(end.tv_usec - start->tv_usec) / 1000000.0;
+}
+
+int main() {
+    struct timeval start_time;
+    start_timer(&start_time);
 
     int n, m, k, a, b, c;
 
@@ -35,6 +53,14 @@ int main(){
 
     desalocar_Lista_Caminhos(lista_caminhos);
     desalocar_Lista_de_Cidades(lista_cidades);
+
+    double elapsed_time = stop_timer(&start_time);
+    printf("Tempo decorrido: %.6f segundos\n", elapsed_time);
+
+    struct rusage usage;
+    getrusage(RUSAGE_SELF, &usage);
+    printf("Tempo de CPU (s): %.6f\n", (double)usage.ru_utime.tv_sec + (double)usage.ru_utime.tv_usec / 1000000.0);
+    printf("Tempo de sistema (s): %.6f\n", (double)usage.ru_stime.tv_sec + (double)usage.ru_stime.tv_usec / 1000000.0);
 
     return 0;
 }
