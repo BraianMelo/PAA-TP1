@@ -39,10 +39,7 @@ bool printar_Caminho(Caminho *caminho){
     if(caminho == NULL)
         return false; 
 
-    for(int i = 0; i < caminho->qtd_arestas; ++i){
-        printf("%d ", caminho->caminho_percorrido[i] + 1);
-    }
-    printf("- valor = %d \n", caminho->valor);
+    printf("%d ", caminho->valor);
     return true;
 }
 

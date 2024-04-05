@@ -35,6 +35,7 @@ bool adicionar_Caminho_na_Lista(Lista_Caminhos *lista_caminhos, int valor_do_cam
 
     lista_caminhos->qtd_caminhos++;
 
+
     return true;
 }
 
@@ -77,6 +78,7 @@ void printar_Caminhos(Lista_Caminhos *lista_caminhos){
     for(int i = 0; i < lista_caminhos->qtd_caminhos; ++i){
         printar_Caminho(&lista_caminhos->Caminhos[i]);
     }
+    printf("\n");
 }
 
 void desalocar_Lista_Caminhos(Lista_Caminhos *lista_caminhos){

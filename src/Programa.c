@@ -16,11 +16,11 @@
 
 bool entrada_estah_correta(int n, int m, int k);
 
-void start_timer(struct timeval *timer) {
+void iniciar_cronometro(struct timeval *timer) {
     gettimeofday(timer, NULL);
 }
 
-double stop_timer(struct timeval *start) {
+double parar_cronometro(struct timeval *start) {
     struct timeval end;
     gettimeofday(&end, NULL);
     return (double)(end.tv_sec - start->tv_sec) + (double)(end.tv_usec - start->tv_usec) / 1000000.0;
@@ -28,7 +28,7 @@ double stop_timer(struct timeval *start) {
 
 int main() {
     struct timeval start_time;
-    start_timer(&start_time);
+    iniciar_cronometro(&start_time);
 
     int n, m, k, a, b, c;
 
@@ -54,12 +54,16 @@ int main() {
     desalocar_Lista_Caminhos(lista_caminhos);
     desalocar_Lista_de_Cidades(lista_cidades);
 
-    double elapsed_time = stop_timer(&start_time);
+    double elapsed_time = parar_cronometro(&start_time);
     printf("Tempo decorrido: %.6f segundos\n", elapsed_time);
 
     struct rusage usage;
     getrusage(RUSAGE_SELF, &usage);
+    
+    //Tempo na CPU
     printf("Tempo de CPU (s): %.6f\n", (double)usage.ru_utime.tv_sec + (double)usage.ru_utime.tv_usec / 1000000.0);
+    
+    //Tempo das chamadas de sistema
     printf("Tempo de sistema (s): %.6f\n", (double)usage.ru_stime.tv_sec + (double)usage.ru_stime.tv_usec / 1000000.0);
 
     return 0;
