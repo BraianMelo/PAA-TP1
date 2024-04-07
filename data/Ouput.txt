@@ -1,0 +1,5 @@
+65351022 65351022 65351023 65351023 65351023 
+
+Tempo total decorrido: 5.679640 segundos
+Tempo de CPU: 0.008002 segundos
+Tempo de usuário: 5.670835 segundos

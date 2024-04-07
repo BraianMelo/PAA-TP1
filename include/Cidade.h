@@ -1,6 +1,6 @@
-#ifndef CIDADES_VIZINHAS_H
+#ifndef CIDADE_H
 
-    #define CIDADES_VIZINHAS_H
+    #define CIDADE_H
 
     #include <stdio.h>
     #include <malloc.h>
@@ -9,15 +9,16 @@
     typedef struct Vizinhanca{
         int id_cidade;
         int preco_viagem;
-        bool caminho_valido;
         struct Vizinhanca *prox_cidade;
-    } Vizinhanca;
+    } Vizinhanca; //No
 
     typedef struct Cidade{
         int id_cidade;
         Vizinhanca *ini_vizinhanca;
         Vizinhanca *fim_vizinhanca;
-    } Cidade;
+    } Cidade; //Cabecalho
+
+    //Uma lista encadeada
 
     Cidade *criar_Cidade(int id_cidade);
     bool adicionar_Vizinho(Cidade *c,int id_cidade, int preco_viagem);

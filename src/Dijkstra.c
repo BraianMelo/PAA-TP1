@@ -1,75 +1,41 @@
 #include "../include/Dijkstra.h"
 
+bool Dijkstra_Modificado(Lista_de_Cidades *lista_cidades, int k, FILE *arquivo_de_saida) {
 
-bool Dijkstras(Lista_Caminhos *lista_caminhos, Lista_de_Cidades *lista_cidades) {
-    bool *cidades_visitadas = (bool*) malloc(sizeof(bool) * lista_cidades->qtd_de_cidades);
-    int *menores_caminhos = (int*) malloc(sizeof(int) * lista_cidades->qtd_de_cidades);
-    int *cidades_anteriores = (int*) malloc(sizeof(int) * lista_cidades->qtd_de_cidades);
+    int *vezes_visitado = (int*) malloc(sizeof(int) * lista_cidades->qtd_de_cidades);
+    Vizinhanca *vizinhanca;
 
-    int id_cidade = 0;
-    cidades_visitadas[0] = true;
-    menores_caminhos[0] = 0;
-    cidades_anteriores[0] = 0;
-
-    for(int i = 1; i < lista_cidades->qtd_de_cidades; ++i){
-        cidades_visitadas[i] = false;
-        menores_caminhos[i] = INFINITO;
-        cidades_anteriores[i] = INFINITO;
+    for(int i = 0; i < lista_cidades->qtd_de_cidades; ++i){
+        vezes_visitado[i] = 0;
     }
 
-    int cidade_atual = 0;
+    Heap_Prioridade *heap = criar_Heap_Prioridade(lista_cidades->qtd_de_cidades);
 
-    while(cidade_atual != INFINITO){
-        cidades_visitadas[cidade_atual] = true;
+    inserir_Heap_Prioridade(heap, 0, 0);
 
-        Vizinhanca *vizinhanca = lista_cidades->cidades[cidade_atual].ini_vizinhanca;
+    while (vezes_visitado[lista_cidades->qtd_de_cidades - 1] < k) {
 
-        while(vizinhanca != NULL){
+        NO no = retirar_primeiro_elemento(heap);
 
-            if(!vizinhanca->caminho_valido){
-                vizinhanca = vizinhanca->prox_cidade;
-                continue;
-            }
+        if(vezes_visitado[no.id_cidade] == k)
+            continue;
 
+        vezes_visitado[no.id_cidade] += 1;
+        
+        if(no.id_cidade == lista_cidades->qtd_de_cidades - 1)
+            fprintf(arquivo_de_saida, "%ld ", no.prioridade);
 
-            if(menores_caminhos[vizinhanca->id_cidade] == INFINITO){
-                menores_caminhos[vizinhanca->id_cidade] = vizinhanca->preco_viagem + menores_caminhos[cidade_atual];
-                cidades_anteriores[vizinhanca->id_cidade] = cidade_atual;
+        vizinhanca = lista_cidades->cidades[no.id_cidade].ini_vizinhanca;
 
-            } else {
-                if(menores_caminhos[vizinhanca->id_cidade] > vizinhanca->preco_viagem + menores_caminhos[cidade_atual]){
-                    menores_caminhos[vizinhanca->id_cidade] = vizinhanca->preco_viagem + menores_caminhos[cidade_atual];
-                    cidades_anteriores[vizinhanca->id_cidade] = cidade_atual;
-                }
-            }
-
+        while(vizinhanca){
+            inserir_Heap_Prioridade(heap, vizinhanca->id_cidade, (long int) vizinhanca->preco_viagem + no.prioridade);
             vizinhanca = vizinhanca->prox_cidade;
         }
 
-        cidade_atual = proxima_cidade(lista_cidades, cidades_visitadas, menores_caminhos);
     }
 
-    adicionar_Caminho_na_Lista(lista_caminhos, menores_caminhos[lista_cidades->qtd_de_cidades - 1], cidades_anteriores, lista_cidades->qtd_de_cidades - 1);
-
-    free(cidades_visitadas);
-    free(menores_caminhos);
-    free(cidades_anteriores);
-
+    liberar_Heap_Prioridade(heap);
+    free(vezes_visitado);
+    fprintf(arquivo_de_saida, "\n");
     return true;
-}
-
-int proxima_cidade(Lista_de_Cidades *lista_cidades, bool *cidades_visitadas, int *menores_caminhos){
-    int proxima_cidade = INFINITO;
-    int menor_caminho = INFINITO;
-    
-    for(int i = 0; i < lista_cidades->qtd_de_cidades; ++i){
-        if(!cidades_visitadas[i] && menores_caminhos[i] != INFINITO){
-            if(menores_caminhos[i] < menor_caminho || menor_caminho == INFINITO){
-                proxima_cidade = i;
-                menor_caminho = menores_caminhos[i];
-            }
-        }
-    }
-    
-    return proxima_cidade;
 }

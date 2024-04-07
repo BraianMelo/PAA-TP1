@@ -11,6 +11,11 @@
         "dijkstra.h": "c",
         "cidade.h": "c",
         "caminho.h": "c",
-        "lista_caminhos.h": "c"
+        "lista_caminhos.h": "c",
+        "heap_prioridade.h": "c",
+        "eppstein.h": "c",
+        "resource.h": "c",
+        "tempo.h": "c",
+        "unistd.h": "c"
     }
 }
